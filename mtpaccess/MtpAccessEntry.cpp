@@ -28,7 +28,7 @@ public:
 };
 
 
-void storageMain(AbstractMappableDrive* drv, std::wstring name)
+static void storageMain(AbstractMappableDrive* drv, std::wstring name)
 {
 	bool didIDoAnything = true;
 
@@ -247,7 +247,7 @@ void storageMain(AbstractMappableDrive* drv, std::wstring name)
 	}
 }
 
-void deviceMain(AbstractConnection* conn, std::wstring name)
+static void deviceMain(AbstractConnection* conn, std::wstring name)
 {
 	devDrvMap* myDrives;
 	try
@@ -318,9 +318,10 @@ void deviceMain(AbstractConnection* conn, std::wstring name)
 			int userIdxRun = 0;
 			for (unsigned int i = 0; i < names.size(); i++)
 			{
+				AbstractMappableDrive* toMap;
 				try
 				{
-					myDrives->at(names.at(i));
+					toMap = myDrives->at(names.at(i));
 				}
 				catch (std::out_of_range)
 				{
@@ -465,7 +466,7 @@ int main()
 		else if (cmd[0] == L"connect")
 		{
 			MtpConnectionProvider::getInstance().refresh();
-			int devcnt = MtpConnectionProvider::getInstance().getDeviceCount();
+			int devcnt = static_cast<int>(MtpConnectionProvider::getInstance().getDeviceCount());
 
 			if (devcnt < 1)
 			{
@@ -480,9 +481,10 @@ int main()
 				std::wstring str;
 				if (MtpConnectionProvider::getInstance().getFriendlyNameOfDevice(i, str))
 				{
+					AbstractConnection* conn;
 					try
 					{
-						connectedDevices.at(str);
+						conn = connectedDevices.at(str);
 					}
 					catch (std::out_of_range)
 					{

@@ -27,10 +27,10 @@ bool IPCEndPoint::doesEndpointExist(const std::string& name)
 	return false;
 }
 
-std::string IPCEndPoint::recvString()
+std::string IPCEndPoint::recvString() const
 {
 	char* buffer = new char[_size + 1];
-	memset(buffer, 0, _size + 1);
+	memset(buffer, 0, static_cast<size_t>(_size) + 1);
 	BOOL success = FALSE;
 	DWORD actual = 0;
 	while (!success || actual == 0)
@@ -52,7 +52,7 @@ bool IPCEndPoint::sendString(const std::string& str, const std::string& destinat
 	}
 
 	DWORD written = 0;
-	BOOL result = WriteFile(hFile, str.c_str(), str.length(), &written, NULL);
+	BOOL result = WriteFile(hFile, str.c_str(), static_cast<DWORD>(str.length()), &written, NULL);
 	CloseHandle(hFile);
 	if (written != str.length() || !result)
 	{
@@ -102,7 +102,7 @@ int IPCStringOutputter::sync()
 	std::string s = this->str();
 	_creator->_stringout(s); 
 	this->_Tidy(); //?
-	return s.length();
+	return static_cast<int>(s.length());
 }
 
 int IPCForController::command(const std::string& cmd, std::ostream& outputter)

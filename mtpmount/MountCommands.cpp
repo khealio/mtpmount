@@ -33,9 +33,10 @@ void ActiveConnection::unmapAllDrives()
 
 bool ActiveConnection::isDriveMapped(const std::wstring& drive)
 {
+	DokanDriveWrapper* drvmap;
 	try
 	{
-		_drivemap.at(drive);
+		drvmap = _drivemap.at(drive);
 		return true;
 	}
 	catch (std::out_of_range)
@@ -46,9 +47,10 @@ bool ActiveConnection::isDriveMapped(const std::wstring& drive)
 
 bool ActiveConnection::mapDrive(std::wstring& name, char drvLetter)
 {
+	DokanDriveWrapper* wrap;
 	try
 	{
-		_drivemap.at(name);
+		wrap = _drivemap.at(name);
 		return true;
 	}
 	catch (std::out_of_range)
@@ -60,7 +62,7 @@ bool ActiveConnection::mapDrive(std::wstring& name, char drvLetter)
 
 		try
 		{
-			DokanDriveWrapper* wrap = new DokanDriveWrapper(_syncer, *_cache, drvId, drvLetter, name);
+			wrap = new DokanDriveWrapper(_syncer, *_cache, drvId, drvLetter, name);
 			_drivemap.insert(typeof_drivemap::value_type(name, wrap));
 			return true;
 		}
@@ -137,7 +139,7 @@ ActiveConnection* MountAddressStore::openConnection(const std::wstring& devicena
 	{
 		MtpConnectionProvider::getInstance().refresh();
 		AbstractConnection* conn = NULL;
-		for (size_t i = 0; i < MtpConnectionProvider::getInstance().getDeviceCount(); i++)
+		for (int i = 0; i < MtpConnectionProvider::getInstance().getDeviceCount(); i++)
 		{
 			std::wstring name;
 			MtpConnectionProvider::getInstance().getFriendlyNameOfDevice(i, name);
@@ -180,9 +182,10 @@ void MountAddressStore::closeConnection(const std::wstring& devicename, std::ost
 
 bool MountAddressStore::isConnectionOpen(const std::wstring& devicename)
 {
+	ActiveConnection* connmap;
 	try
 	{
-		_connectionmap.at(devicename);
+		connmap = _connectionmap.at(devicename);
 		return true;
 	}
 	catch (std::out_of_range)
@@ -239,7 +242,7 @@ void MountAddressStore::printAllActive(std::ostream& stream)
 void MountAddressStore::printAllAvailable(std::ostream& stream)
 {
 	MtpConnectionProvider::getInstance().refresh();
-	int devcnt = MtpConnectionProvider::getInstance().getDeviceCount();
+	int devcnt = static_cast<int>(MtpConnectionProvider::getInstance().getDeviceCount());
 	if (devcnt < 1)
 	{
 		stream << "There are currently no MTP devices connected to this PC!" << std::endl;

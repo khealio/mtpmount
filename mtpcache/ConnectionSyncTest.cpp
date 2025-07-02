@@ -11,7 +11,7 @@ class DecideForTestDrive : public ConnectionSync::MapDriveDecider
 public:
 	virtual int decideDrive(std::vector<std::wstring>& availableDrives)
 	{
-		for (size_t i = 0; i < availableDrives.size(); i++)
+		for (int i = 0; i < availableDrives.size(); i++)
 		{
 			if (availableDrives.at(i) == L"TestDrive")
 			{
@@ -22,7 +22,7 @@ public:
 	}
 };
 
-void threadRoutine1(ConnectionSync* s)
+static void threadRoutine1(ConnectionSync* s)
 {
 	WaitOnResult w1;
 	WaitOnResult w2;
@@ -35,7 +35,7 @@ void threadRoutine1(ConnectionSync* s)
 	std::cout << "Thread 1 out" << std::endl;
 }
 
-void threadRoutine2(ConnectionSync* s)
+static void threadRoutine2(ConnectionSync* s)
 {
 	WaitOnResult w1;
 	WaitOnResult w2;

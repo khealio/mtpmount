@@ -104,7 +104,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\_dokancollect\include;$(SolutionDir)\_dokancollect\include\dokan;$(SolutionDir)\_dokancollect\include\fuse</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include;%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include\dokan;%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include\fuse</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DBG_TEST_VIRTUAL_FILESYSTEM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

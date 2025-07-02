@@ -12,7 +12,7 @@ class DecideForTestDrive : public ConnectionSync::MapDriveDecider
 public:
 	virtual int decideDrive(std::vector<std::wstring>& availableDrives)
 	{
-		for (size_t i = 0; i < availableDrives.size(); i++)
+		for (int i = 0; i < availableDrives.size(); i++)
 		{
 			if (availableDrives.at(i) == L"TestDrive")
 			{

@@ -33,7 +33,7 @@ void SubCommandLibrary::addSubCommand(AbstractSubCommand& cmd)
 {
 	std::string cmdname( cmd.getCommandName() );
 	_subcommands.insert(std::map<std::string, AbstractSubCommand*>::value_type(cmdname, &cmd));
-	int newsize = std::string(cmd.getCommandName()).size();
+	int newsize = static_cast<int>(std::string(cmd.getCommandName()).size());
 	_cmdWidthCounter = (newsize > _cmdWidthCounter) ? newsize : _cmdWidthCounter;
 }
 
@@ -48,7 +48,9 @@ void SubCommandLibrary::getCommandList(std::ostream& output)
 	for (std::map<std::string, AbstractSubCommand*>::iterator iter = _subcommands.begin(); iter != _subcommands.end(); iter++)
 	{
 		output << iter->second->getCommandName();
-		for (int i = std::string(iter->second->getCommandName()).size(); i < _cmdWidthCounter; i++)
+
+		int i = static_cast<int>(std::string(iter->second->getCommandName()).size());
+		for (; i < _cmdWidthCounter; i++)
 		{
 			output << " ";
 		}
