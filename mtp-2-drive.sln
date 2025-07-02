@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2018
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mtpaccess", "mtpaccess\mtpaccess.vcxproj", "{AD9ECC4E-7BCD-4E55-8DE6-2569E7BC77DD}"
 EndProject
@@ -43,10 +43,10 @@ Global
 		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Debug|x64.Build.0 = Debug|x64
 		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Debug|x86.ActiveCfg = Debug|Win32
 		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Debug|x86.Build.0 = Debug|Win32
-#		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x64.ActiveCfg = Release|x64
-#		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x64.Build.0 = Release|x64
-#		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x86.ActiveCfg = Release|Win32
-#		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x86.Build.0 = Release|Win32
+		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x64.ActiveCfg = Release|x64
+		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x64.Build.0 = Release|x64
+		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x86.ActiveCfg = Release|Win32
+		{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}.Release|x86.Build.0 = Release|Win32
 		{5DDC6F3A-5D60-4C2C-85F5-32BA513C51F8}.Debug|x64.ActiveCfg = Debug|x64
 		{5DDC6F3A-5D60-4C2C-85F5-32BA513C51F8}.Debug|x64.Build.0 = Debug|x64
 		{5DDC6F3A-5D60-4C2C-85F5-32BA513C51F8}.Debug|x86.ActiveCfg = Debug|Win32

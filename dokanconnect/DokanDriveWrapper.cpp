@@ -266,7 +266,10 @@ void DOKAN_CALLBACK DokanCleanup(LPCWSTR FileName, PDOKAN_FILE_INFO DokanFileInf
 	FileCache* c = d->_myCache;
 	FsPath path(FileName);
 
-	if (DokanFileInfo->DeleteOnClose)
+	// Occurrence 1 of 3 of DeletePending in this file.
+	// Changed from DeleteOnClose to DeletePending due to Dokan library change, see Dokan v2.3.0.1000 release notes.
+	// Functionality should be the same, but please test it.
+	if (DokanFileInfo->DeletePending)
 	{
 		c->deleteCacheEntry(path, d->_driveId);
 		d->_deleteNode(path);
@@ -334,7 +337,10 @@ NTSTATUS DOKAN_CALLBACK DokanFlushFileBuffers(LPCWSTR FileName, PDOKAN_FILE_INFO
 
 NTSTATUS DOKAN_CALLBACK DokanDeleteDirectory(LPCWSTR FileName, PDOKAN_FILE_INFO DokanFileInfo)
 {
-	if (DokanFileInfo->DeleteOnClose == FALSE) { return STATUS_SUCCESS; }
+	// Occurrence 2 of 3 of DeletePending in this file.
+	// Changed from DeleteOnClose to DeletePending due to Dokan library change, see Dokan v2.3.0.1000 release notes.
+	// Functionality should be the same, but please test it.
+	if (DokanFileInfo->DeletePending == FALSE) { return STATUS_SUCCESS; }
 	DokanDriveWrapper* d = (DokanDriveWrapper*)DokanFileInfo->DokanOptions->GlobalContext;
 	ConnectionSync* s = d->_myConnection;
 	FileCache* c = d->_myCache;
@@ -347,7 +353,10 @@ NTSTATUS DOKAN_CALLBACK DokanDeleteDirectory(LPCWSTR FileName, PDOKAN_FILE_INFO 
 
 NTSTATUS DOKAN_CALLBACK DokanDeleteFile(LPCWSTR FileName, PDOKAN_FILE_INFO DokanFileInfo)
 {
-	if (DokanFileInfo->DeleteOnClose == FALSE) { return STATUS_SUCCESS; }
+	// Occurrence 3 of 3 of DeletePending in this file.
+	// Changed from DeleteOnClose to DeletePending due to Dokan library change, see Dokan v2.3.0.1000 release notes.
+	// Functionality should be the same, but please test it.
+	if (DokanFileInfo->DeletePending == FALSE) { return STATUS_SUCCESS; }
 	DokanDriveWrapper* d = (DokanDriveWrapper*)DokanFileInfo->DokanOptions->GlobalContext;
 	ConnectionSync* s = d->_myConnection;
 	FileCache* c = d->_myCache;
