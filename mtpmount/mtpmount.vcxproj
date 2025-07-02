@@ -144,7 +144,9 @@
       <Message>terminate daemon</Message>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>rmdir /q /s "$(SolutionDir)/_dokancollect"</Command>
+      <Command>
+      </Command>
+      <Message>Formerly contained this: rmdir /q /s "$(SolutionDir)/_dokancollect" to delete this folder, removed for debugging</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -104,12 +104,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>"$(SolutionDir)\_dokancollect\include\dokan"</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\_dokancollect\include;$(SolutionDir)\_dokancollect\include\dokan;$(SolutionDir)\_dokancollect\include\fuse</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DBG_TEST_VIRTUAL_FILESYSTEM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>dokan2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>"$(SolutionDir)\_dokancollect\lib"</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>"$(SolutionDir)\find_dokan.bat" "$(SolutionDir)\_dokancollect\include" "$(SolutionDir)\_dokancollect\lib" "$(SolutionDir)\_dokancollect\x86\lib"</Command>
