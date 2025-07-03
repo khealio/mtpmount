@@ -17,11 +17,9 @@ In addition to that, you can also mount a storage by its name:
 Also, the letter of the virtual drive can be set as shown in the example. This makes things easier when used in a script.
 
 
-# Get binaries
-find them here: https://github.com/Davilarek/mtpmount/actions
-Note: the actions get errors, but just ingore that, I will work on that later
-
-You need to install Dokan (https://github.com/dokan-dev/dokany/releases/latest) before you use mtpmount.
+# Binaries
+CURRENTLY UNAVAILABLE - See the [original repo](https://github.com/hst125fan/mtpmount/releases) for old releases that require [Dokan 1.5](https://github.com/dokan-dev/dokany/releases/tag/v1.5.1.1000) to run.
+You may build Dokan 2-requiring binaries from this repo, the main branch of which has not yet been updated from the parent repo. All current updates are done in the 2025-updates branch, which is in-progress, potentially buggy code.
 
 # Build it yourself
 1. Install Dokan (see above). You will need the "full" package (including development content), the MSI installers have these components opted out by default.
