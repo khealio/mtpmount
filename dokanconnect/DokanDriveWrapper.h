@@ -38,8 +38,11 @@ class DokanDriveWrapperException : public std::exception
 private:
 	std::string msg;
 public:
-	DokanDriveWrapperException(const std::string& message) : msg(message) { }
-	const char* what() { return std::string("DokanDriveWrapperException: " + msg).c_str(); }
+	// This used to create a dangling pointer and was rearranged for safety.
+	// The full exception string is now constructed in the constructor and directly
+	// stored in the member variable from there. It is changed to a c_str and returned.
+	DokanDriveWrapperException(const std::string& message) : msg("DokanDriveWrapperException: " + message) {}
+	const char* what() const noexcept override { return msg.c_str(); }
 };
 
 class DokanDriveWrapperMountFailedException : public DokanDriveWrapperException
@@ -132,7 +135,7 @@ private:
 public:
 	DokanDriveWrapper(ConnectionSync& connsyncer, FileCache& fcache, int driveID, char driveletter, const std::wstring& volumename);
 	~DokanDriveWrapper();
-	char getDriveLetter();
+	char getDriveLetter() const;
 };
 
 class CountDirectoryContents : public DoForAllDirContentFuctionObj

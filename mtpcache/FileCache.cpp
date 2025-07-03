@@ -140,6 +140,8 @@ FileCache::FileTableEntry* FileCache::_createCacheEntry(FsPath toThisFile, int o
 	}
 	catch (std::out_of_range)
 	{
+		// Memory leak reported.
+		// Find where entry is used and ensure it is deleted.
 		entry = new FileTableEntry(toThisFile, onThisDrive, *this);
 		_cachemap.emplace(typeof_cachemap::value_type(FileTableKey(onThisDrive, toThisFile), entry));
 	}
@@ -260,7 +262,7 @@ void FileCache::FileTableEntry::endWriteAccess()
 	_statusMutex.unlock();
 }
 
-std::wstring FileCache::FileTableEntry::getCachePath()
+std::wstring FileCache::FileTableEntry::getCachePath() const
 {
 	return _parent->_transferInfo.cacheBaseDir + L"\\" + _pathInCache;
 }
@@ -288,7 +290,7 @@ bool FileCache::FileTableEntry::isIdle()
 		_readAccesses == 0) ? true : false;
 }
 
-bool FileCache::FileTableEntry::isDirty()
+bool FileCache::FileTableEntry::isDirty() const
 {
 	return (_status == CACHE_DIRTY);
 }

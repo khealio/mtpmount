@@ -38,7 +38,7 @@ std::string IPCEndPoint::recvString() const
 		success = ReadFile(_hSlot, buffer, _size, &actual, NULL);
 	}
 	std::string ret(buffer);
-	delete buffer;
+	delete[] buffer;
 	return ret;
 }
 

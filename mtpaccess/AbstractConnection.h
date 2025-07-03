@@ -12,7 +12,7 @@ protected:
 	AbstractConnection(std::wstring& deletekey) : _deletekey(deletekey) { _refcount = 1; }
 public:
 	std::wstring getDeleteKey() { return _deletekey; }
-	int getRefcount() { return _refcount; }
+	int getRefcount() const { return _refcount; }
 	void refAdd() { _refcount++; }
 	void refDel() { _refcount--; }
 	virtual ~AbstractConnection() { }
@@ -51,7 +51,7 @@ protected:
 	std::wstring _friendlyname;
 	AbstractFsNode* _filePathToNode(FsPath& path);
 
-	AbstractMappableDrive(std::wstring friendlyname) : _friendlyname(friendlyname) { }
+	AbstractMappableDrive(std::wstring friendlyname) : _friendlyname(friendlyname), driveRoot(nullptr) {}
 public:
 	enum checkIfExistsReturn
 	{

@@ -327,8 +327,10 @@ bool MtpMappableDrive::MtpFsFile::contentToStream(std::ostream& stream)
 		return false;
 	}
 
-	IStream* wpdStream;
-	DWORD optimalTransferSize;
+	// Both of these were originally undeclared. Declared to nullptr/NULL to avoid compiler warnings.
+	IStream* wpdStream = nullptr;
+	DWORD optimalTransferSize = NULL;
+
 	hr = resources->GetStream(_objectID.c_str(), WPD_RESOURCE_DEFAULT, STGM_READ, &optimalTransferSize, &wpdStream);
 	if (FAILED(hr))
 	{
@@ -342,7 +344,7 @@ bool MtpMappableDrive::MtpFsFile::contentToStream(std::ostream& stream)
 		char* putHere = new char[optimalTransferSize];
 		wpdStream->Read(putHere, optimalTransferSize, &actuallyReadBytes);
 		stream.write(putHere, actuallyReadBytes); //does this really work for binary (=0x00 bytes)?
-		delete putHere;
+		delete[] putHere;
 	}
 	ActuallyDeleteComObject( wpdStream )
 	_usedConnection->releaseDeviceContentInterface();
@@ -370,8 +372,9 @@ bool MtpMappableDrive::MtpFsDirectory::createNewFileWithStream(CaseInsensitiveWs
 	}
 
 	//Create new file and obtain its IStream:
-	IStream* wpdStream;
-	DWORD optimalBufSize;
+	// Both originally undeclared. Declared to nullptr/NULL to avoid compiler warnings.
+	IStream* wpdStream = nullptr;
+	DWORD optimalBufSize = NULL;
 	HRESULT hr = _usedConnection->getDeviceContentInterface()->CreateObjectWithPropertiesAndData(objectProperties, &wpdStream, &optimalBufSize, nullptr);
 	if (FAILED(hr))
 	{
@@ -390,7 +393,7 @@ bool MtpMappableDrive::MtpFsDirectory::createNewFileWithStream(CaseInsensitiveWs
 		DWORD actuallyWritten = 0;
 		HRESULT writeHr = wpdStream->Write((void*)buf, (ULONG)actuallyRead, &actuallyWritten);
 
-		delete buf;
+		delete[] buf;
 		if (actuallyWritten != actuallyRead || FAILED(writeHr))
 		{
 			_usedConnection->releaseDeviceContentInterface();
@@ -677,7 +680,8 @@ bool MtpMappableDrive::MtpFsDirectory::createNewFolder(CaseInsensitiveWstring na
 	}
 
 	//Create new folder:
-	PWSTR idOfNewObject;
+	// Originally undeclared. Now initialized to NULL to avoid compiler warnings.
+	PWSTR idOfNewObject = NULL;
 	HRESULT hr = _usedConnection->getDeviceContentInterface()->CreateObjectWithPropertiesOnly(objectProperties, &idOfNewObject);
 	if (FAILED(hr))
 	{
@@ -771,11 +775,13 @@ unsigned long long MtpFsNode::getUniqueId()
 bool MtpFsNode::moveNode(AbstractFsNode* destDir)
 {
 	//This Method does not work! Reason: My device does not support it.
+	// ^ from the original dev? Check the blame. -K
 	MtpFsNode* destDirConc = dynamic_cast<MtpFsNode*>(destDir);
 	if (destDirConc == NULL || !destDirConc->isDirectory()) { return false; }
 	std::wstring moveDestId = destDirConc->_objectID;
 
-	IPortableDevicePropVariantCollection* objToMoveColl;
+	// These were originally uninitialized here. One now initialized to nullptr to avoid compiler warnings.
+	IPortableDevicePropVariantCollection* objToMoveColl = nullptr;
 	IPortableDevicePropVariantCollection* moveResults;
 	HRESULT hr = CoCreateInstance(CLSID_PortableDevicePropVariantCollection, NULL, CLSCTX_INPROC_SERVER, IID_IPortableDevicePropVariantCollection, (VOID**)(&objToMoveColl));
 	if (FAILED(hr)) { return false; }

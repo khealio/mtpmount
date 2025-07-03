@@ -3,8 +3,12 @@
 #include <fstream>
 #include <sstream>
 
+// Leaky! Several memory leaks are reported in this function.
+// See destructor at the end of this file.
 ConnectionSync::ConnectionSync(AbstractConnection* conn) : _myConnection(conn), _myDrivesCounter(0)
 {
+	// I'm imagining none of these get deleted.
+	// Except they do? See destructor.
 	_filePullRequestsMutex = new std::mutex;
 	_filePushRequestsMutex = new std::mutex;
 	_treeAccessRequestsMutex = new std::mutex;
@@ -153,6 +157,12 @@ ConnectionSync::TreeAccessRequest::TreeAccessRequest(int driveId, const FsPath& 
 	case DELETE_DIR_OR_FILE: _type = INTERNAL_DELETE_DIR_OR_FILE; break;
 	case CHECK_DIR_EXISTANCE: _type = INTERNAL_DIR_EXISTANCE; break;
 	case CHECK_FILE_EXISTANCE: _type = INTERNAL_FILE_EXISTANCE; break;
+	default:
+		_type = INTERNAL_UNKNOWN; //default, should never happen
+		std::cout << "ConnectionSync::TreeAccessRequest: Unknown UserTreeAccessCmdType " << type << std::endl;
+		std::cout << "This is a bug, please create an issue on our GitHub!" << std::endl;
+		exit(62756765); // Exit with a special code to indicate this is a bug
+						// (spells "buge" in hex, just for fun :D)
 	}
 }
 
@@ -446,6 +456,7 @@ bool ConnectionSync::_threadHandleFilePushReq()
 	return true;
 }
 
+// Leaky? Memory leaks are reported in the ConnectionSync constructor.
 ConnectionSync::~ConnectionSync()
 {
 	_threadNormalStop = true;

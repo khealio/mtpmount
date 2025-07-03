@@ -6,7 +6,7 @@
 #include <iostream>
 #include <io.h>
 
-bool isThisAWriteAccess(ACCESS_MASK DesiredAccess)
+static bool isThisAWriteAccess(ACCESS_MASK DesiredAccess)
 {
 	if (DesiredAccess & GENERIC_ALL || DesiredAccess & GENERIC_WRITE) { return true; }
 	if (DesiredAccess & FILE_WRITE_DATA || DesiredAccess & FILE_APPEND_DATA) { return true; } 
@@ -16,7 +16,10 @@ bool isThisAWriteAccess(ACCESS_MASK DesiredAccess)
 
 int DokanDriveWrapper::_wrapperCount = 0;
 
-DokanDriveWrapper::DokanDriveWrapper(ConnectionSync& connsyncer, FileCache& fcache,int driveID, char driveletter, const std::wstring& volumename) : _myConnection(&connsyncer), _myCache(&fcache), _driveId(driveID), _mountstatus(STATUS_UNKNOWN), _volumename(volumename)
+// _dokanreturn is uninitialized here. Initializing it to 0 causes test 19 of 22 to fail with 3 conflicts.
+// It seems to be initialized in DokanDriveWrapperThreadRoutine. More investigation is needed.
+DokanDriveWrapper::DokanDriveWrapper(ConnectionSync& connsyncer, FileCache& fcache,int driveID, char driveletter, const std::wstring& volumename) : 
+									_myConnection(&connsyncer), _myCache(&fcache), _driveId(driveID), _mountstatus(STATUS_UNKNOWN), _volumename(volumename)
 {
 	if (_wrapperCount == 0)
 	{
@@ -50,7 +53,8 @@ DokanDriveWrapper::DokanDriveWrapper(ConnectionSync& connsyncer, FileCache& fcac
 	dokanoperations.GetFileSecurityA = DokanGetFileSecurity;
 	dokanoperations.MoveFileA = DokanMoveFile;
 
-
+	// When can this thread get deleted? A memory leak is reported here.
+	// It *should* be deleted in the destructor, but a memory leak is reported.
 	_myThread = new std::thread(DokanDriveWrapperThreadRoutine, this);
 
 	std::mutex waitmtx;
@@ -101,7 +105,7 @@ DokanDriveWrapper::~DokanDriveWrapper()
 	}
 }
 
-char DokanDriveWrapper::getDriveLetter()
+char DokanDriveWrapper::getDriveLetter() const
 {
 	if (_mountstatus == STATUS_MOUNTED)
 	{

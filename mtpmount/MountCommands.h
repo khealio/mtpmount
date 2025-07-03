@@ -15,7 +15,9 @@ public:
 	DecideForGivenDriveName(std::wstring match) : _match(match) { }
 	virtual int decideDrive(std::vector<std::wstring>& availableDrives)
 	{
-		for (int i = 0; i < availableDrives.size(); i++)
+		// Avoid signed/unsigned mismatch compiler warning
+		int numDrives = static_cast<int>(availableDrives.size());
+		for (int i = 0; i < numDrives; i++)
 		{
 			if (availableDrives.at(i) == _match)
 			{

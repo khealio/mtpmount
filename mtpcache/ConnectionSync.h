@@ -17,6 +17,9 @@ class ConnectionSync
 public:
 	enum TreeAccessCmdType
 	{
+		INTERNAL_UNKNOWN = -1, // This should never happen, but is used as a default value
+							   // Program will exit if this is encountered and ask the user to 
+							   // submit a bug report on GitHub
 		INTERNAL_CREATE_AS_FILE = 0,
 		INTERNAL_CREATE_AS_DIRECTORY = 1,
 		INTERNAL_DELETE_DIR_OR_FILE = 2,
