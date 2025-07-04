@@ -1,0 +1,2 @@
+C:\Users\kheal\GitHub\mtpmount\x64\Debug\dokanconnect.exe.lastcodeanalysissucceeded
+C:\Users\kheal\GitHub\mtpmount\dokanconnect\x64\Debug\NativeCodeAnalysis.read.1.tlog
