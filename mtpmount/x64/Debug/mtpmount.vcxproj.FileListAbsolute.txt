@@ -1,2 +1,0 @@
-C:\Users\kheal\GitHub\mtpmount\x64\Debug\mtpmount.exe.lastcodeanalysissucceeded
-C:\Users\kheal\GitHub\mtpmount\mtpmount\x64\Debug\NativeCodeAnalysis.read.1.tlog
