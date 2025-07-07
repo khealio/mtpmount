@@ -3,7 +3,7 @@ Mounts Media Transfer Protocol (MTP) devices as (removable) drives on Windows fo
 
 [![License](https://img.shields.io/badge/license-WTFPL-brightgreen?style=plastic)](https://github.com/hst125fan/mtpmount/blob/master/license.md)
 
-Project is built using Visual Studio 2022. An installation of [Dokan](https://dokan-dev.github.io/) is required for this program to run. The project was built with Dokan v2.3.0.1000. Older versions **will not work at all.** Newer versions will be tested once they receive stable releases.
+Project is built using Visual Studio 2022. An installation of [Dokan](https://dokan-dev.github.io/) is required for this program to run. The current version was built with Dokan v2.3.0.1000. Older versions **will not work at all.** Newer versions will be tested once they receive stable releases.
 
 Usage only from command line. Once mtpmount executable is in a %PATH% directory, these commands should do it:
 
