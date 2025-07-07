@@ -780,9 +780,9 @@ bool MtpFsNode::moveNode(AbstractFsNode* destDir)
 	if (destDirConc == NULL || !destDirConc->isDirectory()) { return false; }
 	std::wstring moveDestId = destDirConc->_objectID;
 
-	// These were originally uninitialized here. One now initialized to nullptr to avoid compiler warnings.
+	// These were originally uninitialized here. Both now initialized to nullptr to avoid compiler warnings.
 	IPortableDevicePropVariantCollection* objToMoveColl = nullptr;
-	IPortableDevicePropVariantCollection* moveResults;
+	IPortableDevicePropVariantCollection* moveResults = nullptr;
 	HRESULT hr = CoCreateInstance(CLSID_PortableDevicePropVariantCollection, NULL, CLSCTX_INPROC_SERVER, IID_IPortableDevicePropVariantCollection, (VOID**)(&objToMoveColl));
 	if (FAILED(hr)) { return false; }
 
