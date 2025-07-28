@@ -85,14 +85,16 @@ bool SubCommandLibrary::getCommandHelp(const std::string& cmd, std::ostream& out
 
 int SubCommandLibrary::executeCommand(const std::string& cmd, SubParameters& params, std::ostream& output)
 {
-	if (std::string(getGitTag()) == std::string("untagged"))
+	// Temporarily commented pending AppVeyor integration
+	/*if (std::string(getGitTag()) == std::string("untagged"))
 	{
 		output << "This is an experimental build of mtpmount at " << getGitCommit() << std::endl;
 	}
 	else
 	{
 		output << "This is mtpmount, version " << getGitTag() << " from commit " << getGitCommit() << std::endl;
-	}
+	}*/
+	output << "This is mtpmount, version " << "25.7.0" << " from commit " << getGitCommit() << std::endl;
 	output << "This program comes with NO WARRANTY. Usage only at your own risk." << std::endl << std::endl;
 
 	try
