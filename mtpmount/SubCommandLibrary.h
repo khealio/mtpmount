@@ -25,11 +25,11 @@ class HelpCommand : public AbstractSubCommand
 {
 public:
 	HelpCommand() : AbstractSubCommand("help") { }
-	virtual const char* getBriefDescription() { return "shows detailed information and usage for a specific subcommand"; }
+	virtual const char* getBriefDescription() { return "Shows detailed information and usage for a specific subcommand"; }
 	virtual const char* getFullDescription() {
-		return "shows detailed information and usage for a specific subcommand.\n"
-			"use: xEXECNAMEx help <subcommand>\n"
-			"run mtpmount cmdlist to get a list of all available subcommands";
+		return "Shows detailed information and usage for a specific subcommand.\n"
+			"Usage: xEXECNAMEx help <subcommand>\n"
+			"Run mtpmount cmdlist to get a list of all available subcommands";
 	}
 	virtual int executeCommand(SubParameters& subparams, std::ostream& output);
 };
@@ -38,8 +38,8 @@ class CmdListCommand : public AbstractSubCommand
 {
 public:
 	CmdListCommand() : AbstractSubCommand("cmdlist") { }
-	virtual const char* getBriefDescription() { return "Does the thing that is currently happening"; }
-	virtual const char* getFullDescription() { return "Shows a list of all available subcommands"; }
+	virtual const char* getBriefDescription() { return "Shows this list"; }
+	virtual const char* getFullDescription() { return "Shows all available subcommands"; }
 	virtual int executeCommand(SubParameters& subparams, std::ostream& output);
 };
 

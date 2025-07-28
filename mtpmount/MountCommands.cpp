@@ -378,7 +378,7 @@ MountSubCommand::MountSubCommand() : AbstractSubCommand("mount")
 
 const char* MountSubCommand::getBriefDescription()
 {
-	return "mount MTP-connected storage media as removable drive";
+	return "Mount MTP-connected storage media as removable drive";
 }
 
 const char* MountSubCommand::getFullDescription()
@@ -431,7 +431,7 @@ int MountSubCommand::executeCommand(SubParameters& subparams, std::ostream& outp
 
 	if (device == L"" || drive == L"")
 	{
-		output << "Usage: mount <devicename> <storagename> (<driveletter>)" << std::endl;
+		output << "Usage: mount <devicename> <storagename> <driveletter>" << std::endl;
 		return MTPMOUNT_WRONG_PARAMETRIZATION;
 	}
 
@@ -463,12 +463,12 @@ UnmountSubCommand::UnmountSubCommand() : AbstractSubCommand("unmount")
 
 const char* UnmountSubCommand::getBriefDescription()
 {
-	return "unmount drives/storage media mounted by this program";
+	return "Unmount drives/storage media mounted by this program";
 }
 
 const char* UnmountSubCommand::getFullDescription()
 {
-	return "unmount drives/storage media mounted by this program\n"
+	return "Unmount drives/storage media mounted by this program\n"
 		"Usage: xEXECNAMEx unmount <devicename> <storagename> or unmount <driveletter>\n"
 		"or xEXECNAMEx unmount #<device-id>\n"
 		"obtain available names, driveletters or IDs using xEXECNAMEx list active";
@@ -546,7 +546,7 @@ TerminateConnectionSubCommand::TerminateConnectionSubCommand() : AbstractSubComm
 
 const char* TerminateConnectionSubCommand::getBriefDescription()
 {
-	return "disconnects a connected device to make it ready to be unplugged";
+	return "Disconnects a connected device to make it ready to be unplugged";
 }
 
 const char* TerminateConnectionSubCommand::getFullDescription()
@@ -587,7 +587,7 @@ ListDrivesSubCommand::ListDrivesSubCommand() : AbstractSubCommand("list")
 
 const char* ListDrivesSubCommand::getBriefDescription()
 {
-	return "lists all drives mounted (active) or mountable (available) by this program";
+	return "Lists all drives mounted (active) or mountable (available)";
 }
 
 int ListDrivesSubCommand::executeCommand(SubParameters& subparams, std::ostream& output)

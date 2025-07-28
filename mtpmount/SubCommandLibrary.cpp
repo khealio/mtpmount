@@ -57,7 +57,7 @@ void SubCommandLibrary::getCommandList(std::ostream& output)
 		output << "\t" << iter->second->getBriefDescription() << std::endl;
 	}
 	output << std::endl;
-	output << "Use "<< _execname << " help <command> to get a more detailed description of a specific subcommand" << std::endl;
+	output << "Use "<< _execname << " help <command> to get a more detailed description of a specific subcommand." << std::endl;
 }
 
 bool SubCommandLibrary::getCommandHelp(const std::string& cmd, std::ostream& output)
@@ -92,10 +92,10 @@ int SubCommandLibrary::executeCommand(const std::string& cmd, SubParameters& par
 	}
 	else
 	{
-		output << "This is mtpmount, version " << getGitTag() << " from commit " << getGitCommit() << std::endl;
+		output << "This is mtpmount version " << getGitTag() << " from commit " << getGitCommit() << std::endl;
 	}*/
-	output << "This is mtpmount, version " << "25.7.0" << " from commit " << getGitCommit() << std::endl;
-	output << "This program comes with NO WARRANTY. Usage only at your own risk." << std::endl << std::endl;
+	output << "This is mtpmount version " << "25.7.0" << " from commit " << getGitCommit() << std::endl;
+	output << "This program comes with NO WARRANTY. Use at your own risk." << std::endl << std::endl;
 
 	try
 	{
