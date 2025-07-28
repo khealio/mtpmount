@@ -7,12 +7,10 @@ Project is built using Visual Studio 2022. An installation of [Dokan](https://do
 
 Usage only from command line. Once mtpmount executable is in a %PATH% directory, these commands should do it:
 
-- ```mtpmount list available```: This shows you the connected MTP devices/storages.
-- ```mtpmount mount #x```: Mount a storage media as drive. x is an Index received from previous command.
-- ```mtpmount unmount #x```: Unmount it again once you are done.
+- ```mtpmount list available```: This shows you the connected MTP devices.
+- ```mtpmount mount <device name> <storage name> <drive letter>```: Mount a storage media as drive. Drive letter is a letter of your choosing.
+- ```mtpmount unmount <drive letter>```: Unmount the drive once you are done. This is the same as ejecting a USB drive, and should be done for safety.
 
-In addition to that, you can also mount a storage by its name:
-- ```mtpmount mount devicename storagename driveletter```.
 Also, the letter of the virtual drive can be set as shown in the example. This makes things easier when used in a script.
 
 Other commands are available in the program's built-in help functions.
@@ -21,7 +19,7 @@ Other commands are available in the program's built-in help functions.
 Binaries are available in the Releases tab.
 
 # Build it yourself
-1. Install Dokan (see above). You will need the "full" package (including development content), the MSI installers have these components opted out by default.
+1. Install Dokan (see above). You will need the "full" package (including development content). The MSI installer will have these options, though they are deselected by default.
 2. Install Visual Studio 2022 (if you don't have that already). Community works fine.
 3. Clone this repo.
 4. Open mtp-2-drive.sln in Visual Studio.
