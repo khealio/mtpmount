@@ -76,7 +76,7 @@ bool MtpConnectionProvider::_refreshDeviceList(bool fullRefresh)
 	_availableDeviceGUIDs.emplace_back(L"this_is_not_a_device_id");
 #endif
 
-	delete deviceIDs;
+	delete[] deviceIDs;
 	return (SUCCEEDED(hr)) ? true : false;
 }
 
@@ -117,7 +117,7 @@ bool MtpConnectionProvider::getFriendlyNameOfDevice(int deviceInListId, std::wst
 	{
 		nameWillBePutHere = writebuf;
 	}
-	delete writebuf;
+	delete[] writebuf;
 	return (SUCCEEDED(hr)) ? true : false;
 }
 

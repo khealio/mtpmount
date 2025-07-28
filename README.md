@@ -17,11 +17,10 @@ Also, the letter of the virtual drive can be set as shown in the example. This m
 
 Other commands are available in the program's built-in help functions.
 
-## Binaries
-CURRENTLY UNAVAILABLE - See the [original repo](https://github.com/hst125fan/mtpmount/releases) for old releases that require [Dokan 1.5](https://github.com/dokan-dev/dokany/releases/tag/v1.5.1.1000) to run.
-You may build Dokan 2-requiring binaries from this repo, the main branch of which has not yet been updated from the parent repo. All current updates are done in the 2025-updates branch, which is in-progress, potentially buggy code.
+# Binaries
+Binaries are available in the Releases tab.
 
-## Build it yourself
+# Build it yourself
 1. Install Dokan (see above). You will need the "full" package (including development content), the MSI installers have these components opted out by default.
 2. Install Visual Studio 2022 (if you don't have that already). Community works fine.
 3. Clone this repo.

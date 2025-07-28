@@ -11,7 +11,9 @@
 AbstractConnection* getTestConnection()
 {
 	AbstractConnection* conn = NULL;
-	for (int i = 0; i < MtpConnectionProvider::getInstance().getDeviceCount(); i++)
+	// Avoids signed/unsigned mismatch compiler warning
+	int devCount = static_cast<int>(MtpConnectionProvider::getInstance().getDeviceCount());
+	for (int i = 0; i < devCount; i++)
 	{
 		std::wstring name;
 		MtpConnectionProvider::getInstance().getFriendlyNameOfDevice(i, name);

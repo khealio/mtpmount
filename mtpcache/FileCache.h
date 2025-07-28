@@ -47,7 +47,8 @@ class FileCache
 public:
 	struct TransferInfo
 	{
-		ConnectionSync* useThisConnection;
+		// Both originally uninitialized; one now initialized to nullptr.
+		ConnectionSync* useThisConnection = nullptr;
 		std::wstring cacheBaseDir;
 	};
 private:
@@ -101,15 +102,17 @@ private:
 		FileTableTimeEntry _lastRead;
 	public:
 		FileTableEntry(FsPath devicePath, int drvId, FileCache& creator);
+		// This destructor is empty, and an allocation in FileCache.cpp is causing
+		// memory leaks. Does it actually do anything?
 		~FileTableEntry();
 		bool getReadAccess();
 		void endReadAccess();
 		bool getWriteAccess();
 		void endWriteAccess();
-		std::wstring getCachePath();
+		std::wstring getCachePath() const;
 		bool remap(FileCache& parent, int drvId, bool force = false);
 		bool isIdle();
-		bool isDirty();
+		bool isDirty() const;
 		bool accessClear();
 		bool writeAccessClear();
 		void pushIfDirty();

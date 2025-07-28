@@ -20,29 +20,33 @@ int daemonMain(std::vector<std::string>& commands, IPCStringOutputter& strout)
 	return SubCommandLibrary::getInstance().executeCommand(subcmd, subparams, strout.queryOutStream());
 }
 
-void ensureDaemonIsRunning(std::string execName)
-{
-	if (!IPCEndPoint::doesEndpointExist("mtpmountdaemon"))
-	{
-		STARTUPINFOA stupinfo;
-		PROCESS_INFORMATION procinfo;
-		ZeroMemory(&stupinfo, sizeof(STARTUPINFO));
-		ZeroMemory(&procinfo, sizeof(PROCESS_INFORMATION));
-		stupinfo.cb = sizeof(STARTUPINFO);
-		std::string runName("\"" + execName + "\" daemon");
-		IPCEndPoint startupListener("mtpmountstartup", 1024, 1000);
-		if(!CreateProcessA(NULL, const_cast<char*>(runName.c_str()), NULL, NULL, FALSE, DETACHED_PROCESS, NULL, NULL, &stupinfo, &procinfo))
-		{
-			std::cout << "Not able to create process" << std::endl;
-			std::exit(MTPMOUNT_PROCESS_CREATION_FAILED);
-		}
-		std::string startupcommand = startupListener.recvString();
-		if (startupcommand != "mtpmountstartup-ok")
-		{
-			std::cout << "Startup of mtpmount-daemon failed!" << std::endl;
-			std::exit(MTPMOUNT_CREATED_PROCESS_NO_RESPONSE);
-		}
-	}
+static void ensureDaemonIsRunning(std::string execName)
+{  
+	if (!IPCEndPoint::doesEndpointExist("mtpmountdaemon"))  
+	{  
+		STARTUPINFOA stupinfo;  
+		PROCESS_INFORMATION procinfo;  
+		ZeroMemory(&stupinfo, sizeof(STARTUPINFO));  
+		ZeroMemory(&procinfo, sizeof(PROCESS_INFORMATION));  
+		stupinfo.cb = sizeof(STARTUPINFO);  
+		std::string runName("\"" + execName + "\" daemon");  
+		IPCEndPoint startupListener("mtpmountstartup", 1024, 1000);  
+		if(!CreateProcessA(NULL, const_cast<char*>(runName.c_str()), NULL, NULL, FALSE, DETACHED_PROCESS, NULL, NULL, &stupinfo, &procinfo))  
+		{  
+			std::cout << "Not able to create process" << std::endl;  
+			std::exit(MTPMOUNT_PROCESS_CREATION_FAILED);  
+		}  
+		std::string startupcommand = startupListener.recvString();  
+		if (startupcommand != "mtpmountstartup-ok")  
+		{  
+			std::cout << "Startup of mtpmount-daemon failed!" << std::endl;  
+			std::exit(MTPMOUNT_CREATED_PROCESS_NO_RESPONSE);  
+		}  
+
+		// Close handles to avoid resource leaks  
+		CloseHandle(procinfo.hProcess);  
+		CloseHandle(procinfo.hThread);  
+	}  
 }
 
 int main(int argc, char**argv)

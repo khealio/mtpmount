@@ -14,7 +14,7 @@ public:
 	IPCEndPoint(const std::string& name, int size, DWORD waitTime = MAILSLOT_WAIT_FOREVER);
 	~IPCEndPoint();
 	bool sendString(const std::string& str, const std::string& destination);
-	std::string recvString();
+	std::string recvString() const;
 	static bool doesEndpointExist(const std::string& name);
 };
 

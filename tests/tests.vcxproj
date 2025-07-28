@@ -22,33 +22,33 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{DA4B3CF5-4E71-463C-8C1B-BAD992A670DA}</ProjectGuid>
     <RootNamespace>tests</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -132,13 +132,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_MBCS;DBG_TEST_VIRTUAL_FILESYSTEM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>"$(SolutionDir)\_dokancollect\include\dokan"</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include;%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include\dokan;%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\include\fuse</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
-      <Command>$(TargetPath) $(Platform)\$(Configuration)\testprotocol &amp;&amp; rmdir /q /s "$(SolutionDir)/_dokancollect"</Command>
+      <Command>$(TargetPath) $(Platform)\$(Configuration)\testprotocol &amp;&amp;  rmdir /q /s "$(SolutionDir)/_dokancollect"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>run tests</Message>
+      <Message>
+      </Message>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>bin\find_all_test_headers.bat &amp;&amp; "$(SolutionDir)\find_dokan.bat" "$(SolutionDir)\_dokancollect\include" "$(SolutionDir)\_dokancollect\lib" "$(SolutionDir)\_dokancollect\x86\lib"</Command>
@@ -148,7 +149,7 @@
     </PreBuildEvent>
     <Link>
       <AdditionalDependencies>dokan2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>"$(SolutionDir)\_dokancollect\lib";</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%PROGRAMFILES%\Dokan\DokanLibrary-2.3.0\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -11,7 +11,9 @@ class DecideForTestDrive : public ConnectionSync::MapDriveDecider
 public:
 	virtual int decideDrive(std::vector<std::wstring>& availableDrives)
 	{
-		for (size_t i = 0; i < availableDrives.size(); i++)
+		// Avoid signed/unsigned mismatch compiler warning
+		int numDrives = static_cast<int>(availableDrives.size());
+		for (int i = 0; i < numDrives; i++)
 		{
 			if (availableDrives.at(i) == L"TestDrive")
 			{
@@ -22,7 +24,7 @@ public:
 	}
 };
 
-void threadRoutine1(ConnectionSync* s)
+static void threadRoutine1(ConnectionSync* s)
 {
 	WaitOnResult w1;
 	WaitOnResult w2;
@@ -35,7 +37,7 @@ void threadRoutine1(ConnectionSync* s)
 	std::cout << "Thread 1 out" << std::endl;
 }
 
-void threadRoutine2(ConnectionSync* s)
+static void threadRoutine2(ConnectionSync* s)
 {
 	WaitOnResult w1;
 	WaitOnResult w2;
@@ -64,7 +66,9 @@ void threadRoutine2(ConnectionSync* s)
 int main()
 {
 	AbstractConnection* conn = NULL;
-	for (int i = 0; i < MtpConnectionProvider::getInstance().getDeviceCount(); i++)
+	// Avoids signed/unsigned mismatch compiler warning
+	int devCount = static_cast<int>(MtpConnectionProvider::getInstance().getDeviceCount());
+	for (int i = 0; i < devCount; i++)
 	{
 		std::wstring name;
 		MtpConnectionProvider::getInstance().getFriendlyNameOfDevice(i, name);

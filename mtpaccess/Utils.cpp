@@ -503,7 +503,7 @@ std::wstring CacheLocationProvider::getAppdataPath()
 	DWORD error = GetTempPathW(allocate, path);
 
 	std::wstring pathWstr(path);
-	delete path;
+	delete[] path;
 	if (error == 0) { return L""; }
 	pathWstr.append(L"\\mtpmountcache");
 
@@ -581,12 +581,12 @@ std::wstring Utils::getExecutablePath()
 	WCHAR* buf = new WCHAR[bufsize];
 	while (GetModuleFileNameW(NULL, buf, bufsize) == bufsize)
 	{
-		delete buf;
+		delete[] buf;
 		bufsize *= 2;
 		buf = new WCHAR[bufsize];
 	}
 	std::wstring execPath(buf);
-	delete buf;
+	delete[] buf;
 	return execPath;
 }
 
