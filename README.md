@@ -2,6 +2,7 @@
 Mounts Media Transfer Protocol (MTP) devices as removable drives on Windows for access via command line. Essentially, this lets you treat your phone/camera/etc as a USB drive, allowing you to run commands such as ```robocopy``` on your device. Note that functionality may be restricted by device functionality (e.g. some cameras may not allow write access at all).
 
 [![License](https://img.shields.io/badge/license-WTFPL-brightgreen?style=plastic)](https://github.com/hst125fan/mtpmount/blob/master/license.md)
+[![Build status](https://ci.appveyor.com/api/projects/status/84yloiixlecablel?svg=true)](https://ci.appveyor.com/project/khealio/mtpmount)
 
 Project is built using Visual Studio 2022. An installation of [Dokan](https://dokan-dev.github.io/) is required for this program to run. The current version was built with Dokan v2.3.0.1000. Older versions **will not work at all.** Newer versions will be tested once they receive stable releases.
 
